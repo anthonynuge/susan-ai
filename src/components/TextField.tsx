@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 // extend and also let type script know there are also input lements also
 type TextFieldProps = React.InputHTMLAttributes<HTMLInputElement> & {
@@ -15,8 +15,8 @@ const TextField: React.FC<TextFieldProps> = ({
   helperTxt,
   label,
   name,
-  placeholder = " ",
-  fieldClasses = " ",
+  placeholder = ' ',
+  fieldClasses = ' ',
   ...rest
 }) => {
   return (
@@ -27,6 +27,7 @@ const TextField: React.FC<TextFieldProps> = ({
       <input
         className={`input-field ${fieldClasses}`}
         id={name}
+        name={name}
         placeholder={placeholder}
         {...rest}
       />

@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -23,6 +23,33 @@
   input {
     @apply block
     focus:outline-none;
+  }
+
+  .input-field {
+    @apply block dark:bg-neutral-900 bg-neutral-200;
+    focus: outline-none;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: #ffffff;
+    transition: background-color 5000s ease-in-out 0s;
+    box-shadow: inset 0 0 0px 0px #23232329;
+  }
+
+  @media (prefers-color-scheme: light) {
+    input:-webkit-autofill {
+      -webkit-text-fill-color: black;
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    input:-webkit-autofill {
+      -webkit-text-fill-color: white;
+    }
   }
 }
 
@@ -72,7 +99,7 @@
   }
 
   .input-wrapper:focus-within .input-label,
-  .text-field-wrapper:has(.text-field:not(:placeholder-shown)) .input-field {
+  .input-wrapper:has(.input-field:not(:placeholder-shown)) .input-label {
     @apply translate-x-0.5
     -translate-y-6
     dark:bg-neutral-900
@@ -81,6 +108,15 @@
   }
 }
 
+.input-wrapper .helper {
+  @apply text-xs
+  px-6;
+}
+
 .helper {
   @apply dark:text-neutral-600;
+}
+
+.btn.valid:disabled {
+  @apply bg-neutral-600;
 }
