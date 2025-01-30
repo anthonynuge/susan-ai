@@ -3,3 +3,84 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
+
+@layer base {
+  body {
+    @apply bg-neutral-200
+    text-neutral-950
+    dark:bg-neutral-900
+    dark:text-neutral-200
+    duration-400
+    ease-in-out;
+  }
+
+  a,
+  img,
+  button {
+    @apply block;
+  }
+
+  input {
+    @apply block
+    focus:outline-none;
+  }
+}
+
+@layer components {
+  .input-wrapper {
+    @apply relative;
+  }
+
+  .input-field {
+    @apply ring-1
+    rounded-xl
+    ring-inset
+    text-xs
+    ring-neutral-400
+    hover:ring-neutral-600
+    dark:ring-neutral-700
+    dark:hover:ring-neutral-500
+
+    px-6
+    h-12
+    transition-shadow
+    duration-400
+    ease-in-out;
+  }
+
+  .input-field::placeholder {
+    @apply opacity-0
+    transition-opacity;
+  }
+
+  .input-field:focus::placeholder {
+    @apply opacity-100;
+  }
+
+  .input-label {
+    @apply absolute
+    top-[16px]
+    left-3
+    text-xs
+    px-2
+    origin-[center_left]
+    pointer-events-none
+
+    transition-[color_transform]
+    duration-300
+    ease-in-out;
+  }
+
+  .input-wrapper:focus-within .input-label,
+  .text-field-wrapper:has(.text-field:not(:placeholder-shown)) .input-field {
+    @apply translate-x-0.5
+    -translate-y-6
+    dark:bg-neutral-900
+    bg-neutral-200
+    scale-[.9];
+  }
+}
+
+.helper {
+  @apply dark:text-neutral-600;
+}
