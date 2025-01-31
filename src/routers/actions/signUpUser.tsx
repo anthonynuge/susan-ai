@@ -15,9 +15,9 @@ const signUpUser = async ({ request }: { request: Request }) => {
     console.log('User created: ', user);
   } catch (error: unknown) {
     if (error instanceof AppwriteException) {
+      console.log('Sign up error:', error);
       return { success: false, message: `Appwrite error: ${error.message}` };
     }
-    console.log('Sign up error:', error);
   }
 
   try {

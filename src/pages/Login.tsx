@@ -11,7 +11,7 @@ import { GrRobot } from 'react-icons/gr';
 import Footer from '../components/Footer';
 import LoaderingBar from '../components/LoaderingBar';
 
-const Signup: React.FC = () => {
+const Login: React.FC = () => {
   const error = useActionData();
 
   const navigation = useNavigation();
@@ -36,29 +36,20 @@ const Signup: React.FC = () => {
 
           <div className="flex flex-col max-w-[600px] w-full mx-auto">
             <h2 className="text-neutral-950 font-semibold text-4xl dark:text-neutral-100 text-center mb-4">
-              Create an account
+              Good to see you again she is waiting.
             </h2>
             <p className="text-center leading-tight mt-1 mb-3">
-              Sign up today to meet Susan, your new AI companion! Start your
-              journey with Susan now.
+              Login into account to continue.
             </p>
 
             <Form method="POST" className="grid grid-cols-1 gap-3">
-              <TextField
-                name="name"
-                label="Full name"
-                type="text"
-                placeholder="Full Name"
-                required={true}
-                autoFocus={true}
-              />
-
               <TextField
                 name="email"
                 label="Email"
                 type="email"
                 placeholder="Email"
                 required={true}
+                autoFocus={true}
               />
               <TextField
                 name="password"
@@ -68,25 +59,32 @@ const Signup: React.FC = () => {
                 required={true}
               />
 
+              <Link
+                to="/change-password"
+                className="text-xs ml-auto hover:text-sky-400 -mt-4 transition-colors duration-300"
+              >
+                Reset password?
+              </Link>
+
               <Button
                 type="submit"
                 disabled={navigation.state === 'submitting'}
-                className="bg-sky-500 dark:bg-sky-500 text-neutral-100 dark:text-neutral-950 rounded-xl h-9 text-sm flex justify-center items-center transition-shadow duration-400 dark:hover:shadow-neutral-400 disabled:bg-neutral-600"
+                className="bg-sky-500 dark:bg-sky-500 text-neutral-100 dark:text-neutral-950 rounded-xl h-9 text-sm flex justify-center items-center transition-all duration-400 dark:hover:shadow-neutral-400 disabled:bg-neutral-600 dark:hover:bg-sky-400 hover:bg-sky-600"
               >
                 {navigation.state === 'submitting' ? (
                   <LoaderingBar classes="" />
                 ) : (
-                  'Create Account'
+                  'Login'
                 )}
               </Button>
             </Form>
             <p className="text-center mt-5 text-sm">
-              Already have a account?
+              Don't have an account?
               <Link
-                to="/login"
+                to="/signup"
                 className="text-sm inline ml-2 hover:text-sky-400 duration-300 transition-colors hover:underline"
               >
-                Log in
+                Sign up
               </Link>
             </p>
           </div>
@@ -109,4 +107,4 @@ const Signup: React.FC = () => {
   );
 };
 
-export default Signup;
+export default Login;
