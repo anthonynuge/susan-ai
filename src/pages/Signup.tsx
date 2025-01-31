@@ -5,11 +5,13 @@ import TextField from '../components/TextField';
 import Button from '../components/Button';
 import banner from '../assets/banner.jpg';
 
-import { Link, Form } from 'react-router-dom';
+import { Link, Form, useNavigation } from 'react-router-dom';
 import { GrRobot } from 'react-icons/gr';
 import Footer from '../components/Footer';
 
 const Signup: React.FC = () => {
+  const navigation = useNavigation();
+  console.log(navigation.state);
   return (
     <>
       <PageTitle title="Sign up to create a account" />
@@ -63,10 +65,13 @@ const Signup: React.FC = () => {
 
               <Button
                 type="submit"
-                // disabled={!formFilled}
+                disabled={navigation.state === 'submitting'}
                 className="bg-sky-500 dark:bg-sky-500 text-neutral-100 dark:text-neutral-950 rounded-xl h-9 text-sm flex justify-center items-center transition-shadow duration-400 dark:hover:shadow-neutral-400"
               >
-                Create Account
+                {navigation.state === 'submitting'
+                  ? 'Submitting'
+                  : 'Create Account'}
+                ;
               </Button>
             </Form>
             <p className="text-center mt-5 text-sm">
