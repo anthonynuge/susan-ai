@@ -8,6 +8,7 @@ import banner from '../assets/banner.jpg';
 import { Link, Form, useNavigation } from 'react-router-dom';
 import { GrRobot } from 'react-icons/gr';
 import Footer from '../components/Footer';
+import LoaderingBar from '../components/LoaderingBar';
 
 const Signup: React.FC = () => {
   const navigation = useNavigation();
@@ -66,12 +67,13 @@ const Signup: React.FC = () => {
               <Button
                 type="submit"
                 disabled={navigation.state === 'submitting'}
-                className="bg-sky-500 dark:bg-sky-500 text-neutral-100 dark:text-neutral-950 rounded-xl h-9 text-sm flex justify-center items-center transition-shadow duration-400 dark:hover:shadow-neutral-400"
+                className="bg-sky-500 dark:bg-sky-500 text-neutral-100 dark:text-neutral-950 rounded-xl h-9 text-sm flex justify-center items-center transition-shadow duration-400 dark:hover:shadow-neutral-400 disabled:bg-neutral-600"
               >
-                {navigation.state === 'submitting'
-                  ? 'Submitting'
-                  : 'Create Account'}
-                ;
+                {navigation.state === 'submitting' ? (
+                  <LoaderingBar classes="" />
+                ) : (
+                  'Create Account'
+                )}
               </Button>
             </Form>
             <p className="text-center mt-5 text-sm">

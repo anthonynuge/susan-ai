@@ -116,7 +116,3 @@
 .helper {
   @apply dark:text-neutral-600;
 }
-
-.btn.valid:disabled {
-  @apply bg-neutral-600;
-}
