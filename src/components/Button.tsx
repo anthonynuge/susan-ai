@@ -1,15 +1,15 @@
-import React from "react";
+import React from 'react';
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   classes?: string;
-  variant?: "valid" | "inValid"; //
+  variant?: 'valid' | 'inValid'; //
   // color?: string;
   children: React.ReactNode;
 };
 
 const Button: React.FC<ButtonProps> = ({
-  classes = "",
-  variant = "valid",
+  classes = '',
+  variant = 'valid',
   // color = "primary",
   children,
   ...rest
