@@ -53,7 +53,7 @@ const SidePanel: React.FC<SidePanelProps> = ({
                 <IconBtn
                   icon={<MdDeleteOutline />}
                   size="lg"
-                  className="absolute top-1/2 right-1.5 -translate-y-1/2 opacity-0 group-hover:opacity-90 transition-[colors_opacity] duration-300 group:focus-within:opacity-90 hidden lg:block"
+                  className="absolute top-1/2 right-1.5 -translate-y-1/2 opacity-0 group-hover:opacity-90 transition-[colors,opacity] duration-300 group:focus-within:opacity-90 hidden lg:block"
                 />
               </div>
             </nav>

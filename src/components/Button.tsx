@@ -17,7 +17,7 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button className={`btn ${variant} ${classes}`} {...rest}>
       {children}
-      <div className="state-layer"></div>
+      <div className=""></div>
     </button>
   );
 };

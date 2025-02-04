@@ -5,6 +5,7 @@ import { useState } from 'react';
 import PageTitle from './components/PageTitle';
 import NavBar from './components/NavBar';
 import SidePanel from './components/SidePanel';
+import Welcome from './pages/Welcome';
 
 const App = () => {
   const [sidePanelOpen, setSidePanelOpen] = useState(false);
@@ -32,8 +33,8 @@ const App = () => {
 
           {/* Response area area */}
           <div className="px-4 pb-4 flex flex-col overflow-y-auto ">
-            <div className="max-w-[830px] w-full mx-auto">
-              This is where main goes
+            <div className="max-w-[830px] w-full mx-auto h-full">
+              <Welcome />
             </div>
           </div>
 

@@ -26,8 +26,8 @@
   }
 
   .input-field {
-    @apply block dark:bg-neutral-900 bg-neutral-200;
-    focus: outline-none;
+    @apply block dark:bg-neutral-900 bg-neutral-200
+    focus:outline-none;
   }
 
   input:-webkit-autofill,
@@ -92,7 +92,6 @@
     px-2
     origin-[center_left]
     pointer-events-none
-
     transition-[color_transform]
     duration-300
     ease-in-out;
