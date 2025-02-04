@@ -116,3 +116,104 @@
 .helper {
   @apply dark:text-neutral-600;
 }
+
+.sidePanel {
+  @apply bg-neutral-300 dark:bg-stone-800
+  fixed
+  top-0
+  left-0
+  h-dvh
+
+  /* w-0 sets it to close when opened w-[70vw] */
+  w-0 
+/*hides the other elements until opened  */
+  overflow-hidden 
+  max-w-[70vw]
+  transition-[width]
+  duration-400
+  ease-out
+  z-35
+
+  sm:max-w-[310px]
+
+  lg:static
+  lg:visible
+  lg:w-full
+  lg:opacity-100;
+}
+
+.sidePanel.open {
+  @apply w-[70vw]
+  duration-400
+  ease-in-out
+
+  sm:w-[310px];
+}
+
+.sidePanel-menu {
+  @apply h-full
+  grid
+  grid-rows-[auto_auto_1fr_auto]
+  grid-cols-1
+  px-2
+  opacity-0
+  transition-opacity
+  duration-400
+
+  lg:opacity-100;
+}
+
+.sidePanel.open .sidePanel-menu {
+  @apply opacity-100
+  delay-200;
+}
+
+.overlay {
+  @apply fixed
+  top-0
+  left-0
+  w-full;
+}
+
+.sidePanel-link {
+  @apply gap-2
+  h-8
+  rounded-full
+  ps-3
+  pe-3;
+}
+
+.sidePanel-link.selected {
+  @apply bg-sky-400
+  dark:bg-sky-500;
+}
+
+.state-layer {
+  @apply absolute
+  inset-0
+  opacity-20
+  transition-opacity
+  duration-300
+  ease-in-out
+  dark:bg-sky-500
+  hover:dark:bg-sky-400
+  bg-sky-400
+  rounded-full;
+}
+
+.overlay.open {
+  @apply opacity-0
+  absolute
+  inset-0
+  w-dvw
+  h-dvh
+  z-30
+  lg:hidden
+  lg:w-0
+  lg:h-0;
+}
+
+.overlay {
+  @apply w-0
+  h-0;
+}

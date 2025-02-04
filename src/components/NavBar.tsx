@@ -14,16 +14,18 @@ import MenuItem from './MenuItem';
 
 import logout from '../utils/logout';
 
-const NavBar = () => {
+interface NavBarProps {
+  toggleSidePanel: () => void;
+}
+
+const NavBar: React.FC<NavBarProps> = ({ toggleSidePanel }) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const navigation = useNavigation();
-  const isNormalLoad = navigation.state === 'loading' && !navigation.formData;
+  // const isNormalLoad = navigation.state === 'loading' && !navigation.formData;
 
   const navigate = useNavigate();
   const { user } = useLoaderData();
-
-  // console.log('User from loader: ', user);
 
   return (
     <header className="flex justify-between h-15 items-center px-5">
@@ -31,11 +33,16 @@ const NavBar = () => {
         <GiHamburgerMenu
           size={25}
           className="hover:text-neutral-500 dark:hover:text-neutral-400 transition-colors duration-300"
+          onClick={toggleSidePanel}
         />
         <Link to="/" className="max-w-max mx-auto mb-auto lg:mx-0">
           {/* dark */}
-          <div className="flex text-center">
-            <GrRobot size={25} className="text-sky-500" />
+          <div className="flex text-center lg:hidden">
+            <GrRobot
+              size={25}
+              className="text-sky-500"
+              onClick={toggleSidePanel}
+            />
             <span className="text-neutral-900 text-xl font-semibold dark:text-neutral-200">
               SUSAN-AI
             </span>
