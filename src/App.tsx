@@ -19,25 +19,26 @@ const App = () => {
   return (
     <>
       <PageTitle title="Susan AI" />
-      <div className="">
+      <div className="lg:grid lg:grid-cols-[330px_1fr]">
         {/* sidebar */}
-
         <SidePanel
           sidePanelOpen={sidePanelOpen}
           toggleSidePanel={toggleSidePanel}
         />
 
-        <div className="">
+        <div className="h-dvh grid grid-rows-[max-content_minmax(0,1fr)_max-content]">
           {/* Nav bar */}
           <NavBar toggleSidePanel={toggleSidePanel} />
 
           {/* Response area area */}
-          <div className="">
-            <div className=""></div>
+          <div className="px-4 pb-4 flex flex-col overflow-y-auto ">
+            <div className="max-w-[830px] w-full mx-auto">
+              This is where main goes
+            </div>
           </div>
 
           {/* Chat area */}
-          <div>
+          <div className="flex flex-col items-center h-[200px]">
             <p>Susan can make mistakes. Check important info.</p>
           </div>
         </div>
