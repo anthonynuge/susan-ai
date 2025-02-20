@@ -10,7 +10,7 @@ const Welcome = () => {
         <motion.span
           initial={{ backgroundPositionX: '100%' }}
           animate={{ backgroundPositionX: '0%' }}
-          transition={{ duration: 30, ease: [0.04, 0.73, 0.1, 1] }}
+          transition={{ duration: 1, ease: 'easeInOut' }}
           className="bg-gradient-to-r from-cyan-400 via-[60%] to-transparent to-80% bg-[length:350%_100%] bg-[position:100%_0] bg-clip-text text-transparent"
         >
           Salutations, {user.name.charAt(0).toUpperCase() + user.name.slice(1)}

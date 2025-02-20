@@ -1,11 +1,10 @@
-import React from 'react';
-
 import { useState } from 'react';
 
 import PageTitle from './components/PageTitle';
 import NavBar from './components/NavBar';
 import SidePanel from './components/SidePanel';
 import Welcome from './pages/Welcome';
+import ChatInput from './components/ChatInput';
 
 const App = () => {
   const [sidePanelOpen, setSidePanelOpen] = useState(false);
@@ -39,7 +38,8 @@ const App = () => {
           </div>
 
           {/* Chat area */}
-          <div className="flex flex-col items-center h-[200px]">
+          <div className="flex flex-col items-center h-[250px] justify-center gap-3 w-[830px] mx-auto">
+            <ChatInput />
             <p>Susan can make mistakes. Check important info.</p>
           </div>
         </div>

@@ -4,6 +4,7 @@ interface IconBtnProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   icon: React.ReactElement;
   size?: 'sm' | 'md' | 'lg';
   variant?: 'default' | 'ghost';
+  className?: string;
 }
 
 const sizeClasses = {
@@ -33,7 +34,7 @@ const IconBtn: React.FC<IconBtnProps> = ({
       {...props}
     >
       {React.cloneElement(icon, {
-        className: `w-auto h-auto ${className} ${icon.props.className || ''}`,
+        className: `w-auto h-auto ${icon.props.className || ''}`,
       })}
       {/* {icon} */}
     </button>
