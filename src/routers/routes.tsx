@@ -6,6 +6,7 @@ import Login from '../pages/Login';
 
 import signUpUser from './actions/signUpUser';
 import loginUser from './actions/loginUser';
+import submitPrompt from './actions/submitPrompt'
 
 import appLoader from './loaders/appLoader';
 import signupLoader from './loaders/signupLoader';
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
     path: '/',
     element: <App />,
     loader: appLoader,
+    action: submitPrompt,
   },
   {
     path: '/signup',
