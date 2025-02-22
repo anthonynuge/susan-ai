@@ -2,8 +2,13 @@ import { redirect } from 'react-router-dom';
 import { Query } from 'appwrite';
 import { account, databases } from '../../lib/appwrite';
 
-const appLoader = async () => {
-  const data = {};
+interface ChatData {
+  $id: string;
+  title: string;
+}
+
+const appLoader = async (): Response | Promise<{ user?: { $id: string }; chats?: ChatData[] }> => {
+  const data: { user?: { $id: string }; chats?: ChatData[] } = {};
   try {
     data.user = await account.get();
   } catch (err) {

@@ -12,6 +12,7 @@ import appLoader from './loaders/appLoader';
 import signupLoader from './loaders/signupLoader';
 import loginLoader from './loaders/loginLoader';
 import Chat from '../pages/Chat';
+import chatLoader from './loaders/chatLoader';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
       {
         path: '/:chatId',
         element: <Chat />,
+        loader: chatLoader,
       }
     ]
   },
