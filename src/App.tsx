@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Outlet, useParams } from 'react-router-dom';
 
 import PageTitle from './components/PageTitle';
 import NavBar from './components/NavBar';
@@ -9,11 +10,10 @@ import ChatInput from './components/ChatInput';
 const App = () => {
   const [sidePanelOpen, setSidePanelOpen] = useState(false);
 
-  console.log(sidePanelOpen);
+  const param = useParams()
 
   const toggleSidePanel = () => {
     setSidePanelOpen((prev) => !prev);
-    console.log('Toggled New state is:', sidePanelOpen);
   };
 
   return (
@@ -33,7 +33,11 @@ const App = () => {
           {/* Response area area */}
           <div className="px-4 pb-4 flex flex-col overflow-y-auto ">
             <div className="max-w-[830px] w-full mx-auto h-full">
-              <Welcome />
+              {param.chatId ? (
+                <Outlet />
+              ) : (
+                <Welcome />
+              )}
             </div>
           </div>
 

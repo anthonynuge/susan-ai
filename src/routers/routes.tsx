@@ -11,6 +11,7 @@ import submitPrompt from './actions/submitPrompt'
 import appLoader from './loaders/appLoader';
 import signupLoader from './loaders/signupLoader';
 import loginLoader from './loaders/loginLoader';
+import Chat from '../pages/Chat';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,12 @@ const router = createBrowserRouter([
     element: <App />,
     loader: appLoader,
     action: submitPrompt,
+    children: [
+      {
+        path: '/:chatId',
+        element: <Chat />,
+      }
+    ]
   },
   {
     path: '/signup',

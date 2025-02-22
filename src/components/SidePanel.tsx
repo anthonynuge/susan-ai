@@ -2,7 +2,7 @@ import React from 'react';
 import LogoLink from './LogoLink';
 import { FaPlus } from 'react-icons/fa';
 import { MdDeleteOutline } from 'react-icons/md';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLoaderData } from 'react-router-dom';
 import IconBtn from './IconBtn';
 import { IoChatbubbleEllipsesOutline } from 'react-icons/io5';
 import Footer from './Footer';
@@ -16,6 +16,10 @@ const SidePanel: React.FC<SidePanelProps> = ({
   sidePanelOpen,
   toggleSidePanel,
 }) => {
+  const { chats: { documents: chatData }
+  } = useLoaderData() || {};
+
+
   return (
     <>
       <div className={`sidePanel ${sidePanelOpen ? 'open' : ''}`}>
@@ -39,23 +43,28 @@ const SidePanel: React.FC<SidePanelProps> = ({
             {/* <hr className="text-neutral-600" /> */}
 
             <nav>
-              <div className="relative group">
-                <NavLink
-                  to="new-chat"
-                  className="sidePanel-link flex items-center"
-                  title=""
-                >
-                  <IoChatbubbleEllipsesOutline size={16} />
-                  <span className="truncate text-sm">Start a convo</span>
-                  <div className="state-layer"></div>
-                </NavLink>
+              {chatData.map((item) => (
 
-                <IconBtn
-                  icon={<MdDeleteOutline />}
-                  size="lg"
-                  className="absolute top-1/2 right-1.5 -translate-y-1/2 opacity-0 group-hover:opacity-90 transition-[colors,opacity] duration-300 group:focus-within:opacity-90 hidden lg:block"
-                />
-              </div>
+                <div key={item.$id} className="relative group">
+                  <NavLink
+                    to={item.$id}
+                    className="sidePanel-link flex items-center"
+                    title={item.title}
+                  >
+                    <IoChatbubbleEllipsesOutline size={16} />
+                    <span className="truncate text-sm">{item.title}</span>
+                    <div className="state-layer"></div>
+                  </NavLink>
+
+                  <IconBtn
+                    icon={<MdDeleteOutline />}
+                    size="lg"
+                    className="absolute top-1/2 right-1.5 -translate-y-1/2 opacity-0 group-hover:opacity-90 transition-[colors,opacity] duration-300 group:focus-within:opacity-90 hidden lg:block"
+                  />
+                </div>
+
+              ))}
+
             </nav>
           </div>
 
