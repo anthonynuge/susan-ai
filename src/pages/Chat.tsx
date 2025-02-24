@@ -2,6 +2,7 @@ import PageTitle from "../components/PageTitle"
 
 import { useLoaderData } from "react-router-dom"
 import UserPrompt from "../components/UserPrompt";
+import SusanResponse from "../components/SusanResponse";
 
 const Chat = () => {
   const {
@@ -15,7 +16,7 @@ const Chat = () => {
         {convos.map((convo) => (
           <div key={convo.$id}>
             <UserPrompt text={convo.user_prompt} />
-            <p className="">{convo.ai_response}</p>
+            <SusanResponse text={convo.ai_response} />
           </div>
 
         )
