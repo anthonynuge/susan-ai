@@ -265,3 +265,107 @@
   overflow-hidden
 }
 
+.mkdn-response {
+  @apply
+  leading-6
+  pt-2
+}
+
+.mkdn-response > :first-child {
+  @apply
+  !mt-0;
+}
+
+.mkdn-response :where(h1, h2, h3, h4, h5, h6) {
+  @apply
+  mt-7
+  mb-3
+  font-bold
+}
+
+.mkdn-response :where(table, pre, p) {
+  @apply
+  my-3
+}
+
+.mkdn-response :where(a, strong, span) {
+  @apply
+  inline
+}
+
+.mkdn-response :where(ul, ol) {
+  list-style: revert;
+  @apply
+  ps-8
+}
+
+.mkdn-response code {
+  @apply
+  inline-block
+  dark:text-neutral-400
+  dark:bg-neutral-700/50
+  rounded-md
+  py-[2px]
+  px-2
+}
+
+.mkdn-response pre code {
+  @apply
+  block
+  overflow-x-auto
+  py-2
+  px-2
+}
+
+.mkdn-response table {
+  @apply
+  bg-neutral-400/50
+  dark:bg-neutral-700/50
+  block
+  max-w-max
+  overflow-auto
+  rounded-md
+  border-neutral-400/50
+  dark:border-neutral-600/50
+}
+
+
+.mkdn-response table th{
+  @apply
+  text-left
+  p-3
+  whitespace-nowrap
+  border-neutral-400/50
+  dark:border-neutral-600/50
+}
+
+.mkdn-response table td{
+  @apply
+  text-left
+  p-3
+  whitespace-nowrap
+  border-t-[1px]
+  border-neutral-400/50
+  dark:border-neutral-600/50
+}
+
+.mkdn-response a {
+  @apply
+  underline
+  text-sky-500/80
+  dark:text-sky-400/60
+  break-words
+
+}
+
+.mkdn-response table tr > :first-child {
+  @apply
+  border-l-[1px]
+}
+
+.mkdn-response table tr > :last-child {
+  @apply
+  border-r-[1px]
+  border-neutral-400/50
+  dark:border-neutral-600/50
+}

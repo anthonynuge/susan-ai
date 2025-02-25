@@ -1,6 +1,9 @@
 import React from 'react'
 import susan from "../assets/susan.jpg"
 
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+
 interface SusanResponseProps {
   text: string;
   children?: React.ReactNode;
@@ -25,8 +28,11 @@ const SusanResponse = ({ text, children }: SusanResponseProps): JSX.Element => {
       {children}
 
       {/* ai response */}
-      <div className='md-content'>
-        {text}
+      <div className='mkdn-response'>
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+          {text}
+
+        </ReactMarkdown>
       </div>
     </div>
   )

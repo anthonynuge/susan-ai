@@ -42,7 +42,7 @@ const App = () => {
           </div>
 
           {/* Chat area */}
-          <div className="flex flex-col items-center h-[250px] justify-center gap-3 px-10 md:px-20 lg:px-50">
+          <div className="flex flex-col items-center h-[150px] justify-center gap-3 px-10 md:px-20 lg:px-50">
             <ChatInput />
             <p>Susan can make mistakes. Check important info.</p>
           </div>
