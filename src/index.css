@@ -369,3 +369,19 @@
   border-neutral-400/50
   dark:border-neutral-600/50
 }
+
+.mkdn-response .code-block {
+  @apply
+  bg-neutral-300/90
+  dark:bg-neutral-800/90
+  rounded-t-md
+  rounded-b-sm
+  overflow-hidden;
+  mb-1
+}
+
+.mkdn-response .code-block * {
+  @apply
+  !bg-inherit
+}
+

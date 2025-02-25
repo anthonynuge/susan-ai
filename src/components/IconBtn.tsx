@@ -15,7 +15,7 @@ const sizeClasses = {
 
 const variantClasses = {
   default:
-    'text-gray-700 hover:text-gray-900 dark:text-neutral-200 dark:hover:text-neutral-100',
+    'text-gray-700 hover:text-gray-900 dark:text-neutral-400 dark:hover:text-neutral-100',
   ghost: 'hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full p-2 transition',
 } as const;
 
