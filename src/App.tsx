@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Outlet, useParams } from 'react-router-dom';
+import { Outlet, useNavigation, useParams } from 'react-router-dom';
 
 import PageTitle from './components/PageTitle';
 import NavBar from './components/NavBar';
@@ -11,10 +11,15 @@ const App = () => {
   const [sidePanelOpen, setSidePanelOpen] = useState(false);
 
   const param = useParams()
+  const navigation = useNavigation();
+  console.log(navigation)
 
   const toggleSidePanel = () => {
     setSidePanelOpen((prev) => !prev);
   };
+
+  // page load or reload without form
+  const isPageLoad = navigation.state === 'loading' && !navigation.formData;
 
   return (
     <>
@@ -33,7 +38,7 @@ const App = () => {
           {/* Response area area */}
           <div className="px-4 pb-4 flex flex-col overflow-y-auto mb-6">
             <div className="max-w-[830px] w-full mx-auto h-full">
-              {param.chatId ? (
+              {isPageLoad ? null : param.chatId ? (
                 <Outlet />
               ) : (
                 <Welcome />
