@@ -6,7 +6,6 @@ import remarkGfm from 'remark-gfm'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark, oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { FaRegClipboard } from 'react-icons/fa';
-import IconBtn from './IconBtn';
 
 interface SusanResponseProps {
   text: string;
@@ -32,13 +31,11 @@ const SusanResponse = ({ text, children }: SusanResponseProps): JSX.Element => {
     return langMatch ? (
       <>
         <div className='code-block relative'>
-          <div className='code-header flex items-center justify-between pl-4 py-3 pb-0 '>
-            <div className=''>{langMatch[0]}</div>
-            <IconBtn
-              icon={<FaRegClipboard />}
-              size='sm'
-              className='absolute z-10 left-[95%] cursor-pointer'
-            />
+          <div className='code-header flex items-center justify-between pl-4 py-3 pb-0 border-b-1 dark:border-neutral-500/30'>
+            <div className=''>{langMatch[1]}</div>
+            <button className='group cursor-pointer p-2 rounded-full transition'>
+              <FaRegClipboard className='text-neutral-600 group-hover:text-neutral-800 dark:text-neutral-500 dark:group-hover:text-neutral-300 transition' />
+            </button>
           </div>
           <SyntaxHighlighter
             {...rest}
