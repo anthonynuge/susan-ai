@@ -18,12 +18,26 @@ interface CodeProps {
   [key: string]: string | number | boolean | React.ReactNode | undefined;
 }
 
+const capCase = (text: string): string => {
+  return text
+    .split(' ')
+    .map((w) => w.replace(w[0], w[0].toUpperCase()))
+    .join();
+}
+
 const SusanResponse = ({ text, children }: SusanResponseProps): JSX.Element => {
-  const [syntaxHighlightTheme, setSyntaxHiglightTheme] = useState("");
+  const [syntaxHighlightTheme, setSyntaxHighlightTheme] = useState("");
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    setSyntaxHiglightTheme(mediaQuery.matches ? oneDark : oneLight)
+    setSyntaxHighlightTheme(mediaQuery.matches ? oneDark : oneLight)
+    const syntaxThemeListener = (event: MediaQueryListEvent) => {
+      setSyntaxHighlightTheme((event.matches ? oneDark : oneLight));
+    }
+    mediaQuery.addEventListener("change", syntaxThemeListener);
+    return () => {
+      mediaQuery.removeEventListener("change", syntaxThemeListener);
+    }
   }, [])
 
   const code: FC.ReactNode<CodeProps> = ({ children, className, ...rest }) => {
@@ -31,8 +45,8 @@ const SusanResponse = ({ text, children }: SusanResponseProps): JSX.Element => {
     return langMatch ? (
       <>
         <div className='code-block relative'>
-          <div className='code-header flex items-center justify-between pl-4 py-3 pb-0 border-b-1 dark:border-neutral-500/30'>
-            <div className=''>{langMatch[1]}</div>
+          <div className='code-header flex items-center justify-between pl-4 pt-2 border-b-1 dark:border-neutral-500/30'>
+            <div className=''>{capCase(langMatch[1])}</div>
             <button className='group cursor-pointer p-2 rounded-full transition'>
               <FaRegClipboard className='text-neutral-600 group-hover:text-neutral-800 dark:text-neutral-500 dark:group-hover:text-neutral-300 transition' />
             </button>
@@ -41,7 +55,7 @@ const SusanResponse = ({ text, children }: SusanResponseProps): JSX.Element => {
             {...rest}
             PreTag='div'
             language={langMatch[1]}
-            style={oneDark}
+            style={syntaxHighlightTheme}
             customStyle={{
               marginBlock: '0',
               padding: '3px'
