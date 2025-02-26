@@ -7,6 +7,7 @@ import Login from '../pages/Login';
 import signUpUser from './actions/signUpUser';
 import loginUser from './actions/loginUser';
 import submitPrompt from './actions/submitPrompt'
+import chatAction from './actions/chatAction';
 
 import appLoader from './loaders/appLoader';
 import signupLoader from './loaders/signupLoader';
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
         path: '/:chatId',
         element: <Chat />,
         loader: chatLoader,
+        action: chatAction,
       }
     ]
   },

@@ -2,7 +2,7 @@ import { useRef, useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import IconBtn from './IconBtn';
 import { IoIosSend } from 'react-icons/io';
-import { useNavigation, useSubmit } from 'react-router-dom';
+import { useNavigation, useParams, useSubmit } from 'react-router-dom';
 
 const ChatInput = () => {
   const chatField = useRef<HTMLDivElement | null>(null);
@@ -14,6 +14,8 @@ const ChatInput = () => {
 
   const submit = useSubmit();
   const navigation = useNavigation();
+  const { chatId } = useParams();
+  // console.log("from param: ", chatId)
 
   const handleChatInputUpdate = useCallback(() => {
     if (!chatField.current) return;
@@ -59,11 +61,11 @@ const ChatInput = () => {
     }, {
       method: 'POST',
       encType: 'application/x-www-form-urlencoded',
-      action: '/'
+      action: `/${chatId || ''}`
     });
     chatField.current.innerHTML = '';
     handleChatInputUpdate();
-  }, [handleChatInputUpdate, inputValue, navigation.state]);
+  }, [handleChatInputUpdate, inputValue, navigation.state, chatId]);
 
   // framer variant that controlles animation based on visibilitiy state
   const chatInputVariant = {
