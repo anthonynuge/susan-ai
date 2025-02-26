@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import susan from "../assets/susan.jpg"
 
 import ReactMarkdown from 'react-markdown'
@@ -29,14 +29,33 @@ const SusanResponse = ({ text, children }: SusanResponseProps): JSX.Element => {
   const [syntaxHighlightTheme, setSyntaxHighlightTheme] = useState("");
 
   useEffect(() => {
+
+    // true if dark mode or false if light mode
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+    // sets the use state theme
     setSyntaxHighlightTheme(mediaQuery.matches ? oneDark : oneLight)
+
+    // function that runs then theme changes. 
     const syntaxThemeListener = (event: MediaQueryListEvent) => {
       setSyntaxHighlightTheme((event.matches ? oneDark : oneLight));
     }
+
     mediaQuery.addEventListener("change", syntaxThemeListener);
+
+    // cleanup and remove the event
     return () => {
       mediaQuery.removeEventListener("change", syntaxThemeListener);
+    }
+  }, [])
+
+  const handleCopy = useCallback(async (codeOutput) => {
+    try {
+      await navigator.clipboard.writeText(codeOutput);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(`Error text was not copied: ${error.message}`)
+      }
     }
   }, [])
 
@@ -47,7 +66,10 @@ const SusanResponse = ({ text, children }: SusanResponseProps): JSX.Element => {
         <div className='code-block relative'>
           <div className='code-header flex items-center justify-between pl-4 pt-2 border-b-1 dark:border-neutral-500/30'>
             <div className=''>{capCase(langMatch[1])}</div>
-            <button className='group cursor-pointer p-2 rounded-full transition'>
+            <button
+              className='group cursor-pointer p-2 rounded-full transition'
+              onClick={handleCopy.bind(null, children)}
+            >
               <FaRegClipboard className='text-neutral-600 group-hover:text-neutral-800 dark:text-neutral-500 dark:group-hover:text-neutral-300 transition' />
             </button>
           </div>
