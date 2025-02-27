@@ -8,7 +8,7 @@ import { oneDark, oneLight } from 'react-syntax-highlighter/dist/esm/styles/pris
 import { FaRegClipboard } from 'react-icons/fa';
 
 interface SusanResponseProps {
-  text: string;
+  text?: string;
   children?: React.ReactNode;
 }
 

@@ -4,11 +4,15 @@ import { useLoaderData } from "react-router-dom"
 import UserPrompt from "../components/UserPrompt";
 import SusanResponse from "../components/SusanResponse";
 import { motion } from "framer-motion"
+import ContentPreloader from "../components/ContentPreLoader";
+import usePromptPreloader from "../hooks/usePromptPreloader";
 
 const Chat = () => {
   const {
     chat: { title, convos }
   } = useLoaderData() || {};
+
+  const { preLoaderVal } = usePromptPreloader();
 
   return (
     <>
@@ -28,6 +32,10 @@ const Chat = () => {
         )
         )}
       </motion.div>
+
+      {preLoaderVal && (
+        <ContentPreloader text={preLoaderVal} />
+      )}
     </>
   )
 }
