@@ -45,7 +45,8 @@ const App = () => {
   return (
     <>
       <PageTitle title="Susan AI" />
-      <div className="lg:grid lg:grid-cols-[330px_1fr]">
+      <div className={`grid transition-all
+        ${sidePanelOpen ? "md:grid-cols-[330px_1fr]" : "md:grid-cols-[0px_1fr]"}`}>
         {/* sidebar */}
         <SidePanel
           sidePanelOpen={sidePanelOpen}
