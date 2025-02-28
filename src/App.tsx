@@ -12,7 +12,6 @@ const App = () => {
 
   const param = useParams()
   const navigation = useNavigation();
-  console.log(navigation)
 
   const toggleSidePanel = () => {
     setSidePanelOpen((prev) => !prev);

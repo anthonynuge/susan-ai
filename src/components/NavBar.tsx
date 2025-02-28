@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import UserIconBtn from './UserIconBtn';
 import { GiHamburgerMenu } from 'react-icons/gi';
+import { MdDeleteOutline } from 'react-icons/md';
 import {
   Link,
   useNavigate,
   useLoaderData,
   useNavigation,
+  useParams,
+  useSubmit
 } from 'react-router-dom';
 import { GrRobot } from 'react-icons/gr';
 import UserAvatar from './UserAvatar';
@@ -13,6 +16,8 @@ import Menu from './Menu';
 import MenuItem from './MenuItem';
 
 import logout from '../utils/logout';
+import IconBtn from './IconBtn';
+import deleteChat from '../utils/deleteChat';
 
 interface NavBarProps {
   toggleSidePanel: () => void;
@@ -25,7 +30,9 @@ const NavBar: React.FC<NavBarProps> = ({ toggleSidePanel }) => {
   // const isNormalLoad = navigation.state === 'loading' && !navigation.formData;
 
   const navigate = useNavigate();
-  const { user } = useLoaderData();
+  const { user, chats } = useLoaderData();
+  const params = useParams();
+  const submit = useSubmit();
 
   return (
     <header className="flex justify-between h-15 items-center px-5">
@@ -50,7 +57,26 @@ const NavBar: React.FC<NavBarProps> = ({ toggleSidePanel }) => {
         </Link>
       </div>
 
-      <div className="relative">
+      <div className="relative flex">
+        {params.chatId && (
+          <IconBtn
+            icon={<MdDeleteOutline size={20} />}
+            className='lg:hidden '
+            onClick={() => {
+              const { title } = chats.documents.find(
+                ({ $id }) => params.chatId === $id,
+              );
+              console.log(title)
+
+              deleteChat({
+                chatId: params.chatId,
+                title: title,
+                submit: submit
+              })
+            }}
+          />
+        )}
+
         <UserIconBtn onClick={() => setMenuOpen(!menuOpen)}>
           <UserAvatar name={user?.name} />
         </UserIconBtn>

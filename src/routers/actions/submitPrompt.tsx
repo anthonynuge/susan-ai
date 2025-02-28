@@ -4,6 +4,24 @@ import { getConvoTitle, getGeminiResponse } from '../../api/geminiAI.ts';
 import { account, databases } from '../../lib/appwrite.ts'
 import { ID } from "appwrite"
 
+const chatDeleteAction = async (formData) => {
+  const chatId = formData.get('chat_id');
+  const chatTitle = formData.get('chat_title');
+  try {
+    await databases.deleteDocument(
+      import.meta.env.VITE_APPWRITE_DATABASE_ID,
+      'chats',
+      chatId
+    )
+    return { chatTitle }
+
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(`Error deleting chat. ${error.message}`)
+    }
+  }
+}
+
 const userPromptAction = async (formData) => {
   const prompt = formData.get('user_prompt')
 
@@ -64,8 +82,9 @@ const submitPrompt = async ({ request }: { request: Request }) => {
 
   if (requestType === 'user_prompt') {
     return await userPromptAction(formData);
+  } else if (requestType === 'delete_chat') {
+    return await chatDeleteAction(formData);
   }
-
 }
 
 export default submitPrompt
