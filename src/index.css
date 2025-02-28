@@ -190,11 +190,13 @@
 .state-layer {
   @apply absolute
   inset-0
-  opacity-20
+  opacity-0
   transition-opacity
   duration-300
   ease-in-out
-  hover:dark:bg-sky-200
+  bg-sky-600
+  dark:bg-sky-200
+  hover:opacity-30
   /* dark:bg-sky-500 */
   /* hover:dark:bg-sky-400 */
   /* bg-sky-400 */

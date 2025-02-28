@@ -3,7 +3,6 @@ import LogoLink from './LogoLink';
 import { FaPlus } from 'react-icons/fa';
 import { MdDeleteOutline } from 'react-icons/md';
 import { Link, NavLink, useLoaderData } from 'react-router-dom';
-import IconBtn from './IconBtn';
 import { IoChatbubbleEllipsesOutline } from 'react-icons/io5';
 import Footer from './Footer';
 
@@ -48,23 +47,27 @@ const SidePanel: React.FC<SidePanelProps> = ({
                 <div key={item.$id} className="relative group">
                   <NavLink
                     to={item.$id}
-                    className="sidePanel-link flex items-center"
+                    className={({ isActive }) =>
+                      `sidePanel-link flex items-center justify-between transition-colors duration-300
+                      ${isActive ? "bg-sky-400/50 dark:bg-sky-800" : ""}`
+                    }
                     title={item.title}
                   >
-                    <IoChatbubbleEllipsesOutline size={16} />
-                    <span className="truncate text-sm">{item.title}</span>
-                    <div className="state-layer"></div>
+                    <div className='flex items-center gap-1 w-[85%]'>
+                      <IoChatbubbleEllipsesOutline size={16} />
+                      <span className="truncate text-sm">{item.title}</span>
+                      <div className="state-layer"></div>
+                    </div>
+
+                    <button
+                      className='opacity-0 group-hover:opacity-90 cursor-pointer transition-[colors,opacity] 
+                        duration-300 text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 hover:dark:text-neutral-200'
+                    >
+                      <MdDeleteOutline size={16} className='' />
+                    </button>
                   </NavLink>
-
-                  <IconBtn
-                    icon={<MdDeleteOutline />}
-                    size="lg"
-                    className="absolute top-1/2 right-1.5 -translate-y-1/2 opacity-0 group-hover:opacity-90 transition-[colors,opacity] duration-300 group:focus-within:opacity-90 hidden lg:block"
-                  />
                 </div>
-
               ))}
-
             </nav>
           </div>
 
