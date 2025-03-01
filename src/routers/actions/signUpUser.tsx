@@ -12,7 +12,6 @@ const signUpUser = async ({ request }: { request: Request }) => {
       return { success: false, message: 'Missing required Fields' };
     }
     const user = await account.create(ID.unique(), email, password, name);
-    console.log('User created: ', user);
   } catch (error: unknown) {
     if (error instanceof AppwriteException) {
       console.log('Sign up error:', error);
@@ -22,7 +21,7 @@ const signUpUser = async ({ request }: { request: Request }) => {
 
   try {
     const session = await account.createEmailPasswordSession(email, password);
-    console.log('Session created succesfully', session);
+    console.log("Session created successfully.")
   } catch (error: unknown) {
     if (error instanceof AppwriteException) {
       console.log('Session Error', error);

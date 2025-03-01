@@ -66,7 +66,6 @@ const NavBar: React.FC<NavBarProps> = ({ toggleSidePanel }) => {
               const { title } = chats.documents.find(
                 ({ $id }) => params.chatId === $id,
               );
-              console.log(title)
 
               deleteChat({
                 chatId: params.chatId,

@@ -71,7 +71,7 @@ const App = () => {
           </div>
 
           {/* Chat area */}
-          <div className="flex flex-col mx-auto justify-center items-center max-w-[830px] w-full gap-3">
+          <div className="flex flex-col mx-auto justify-center items-center max-w-[830px] w-full gap-3 px-4 md:px-0">
             <ChatInput />
             <p>Susan can make mistakes. Check important info.</p>
           </div>

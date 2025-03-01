@@ -2,9 +2,10 @@ import React from 'react';
 import LogoLink from './LogoLink';
 import { FaPlus } from 'react-icons/fa';
 import { MdDeleteOutline } from 'react-icons/md';
-import { Link, NavLink, useLoaderData } from 'react-router-dom';
+import { Link, NavLink, useLoaderData, useSubmit } from 'react-router-dom';
 import { IoChatbubbleEllipsesOutline } from 'react-icons/io5';
 import Footer from './Footer';
+import deleteChat from '../utils/deleteChat';
 
 interface SidePanelProps {
   sidePanelOpen: boolean;
@@ -18,6 +19,7 @@ const SidePanel: React.FC<SidePanelProps> = ({
   const { chats: { documents: chatData }
   } = useLoaderData() || {};
 
+  const submit = useSubmit();
 
   return (
     <>
@@ -43,7 +45,6 @@ const SidePanel: React.FC<SidePanelProps> = ({
 
             <nav>
               {chatData.map((item) => (
-
                 <div key={item.$id} className="relative group">
                   <NavLink
                     to={item.$id}
@@ -61,7 +62,18 @@ const SidePanel: React.FC<SidePanelProps> = ({
 
                     <button
                       className='opacity-0 group-hover:opacity-90 cursor-pointer transition-[colors,opacity] 
-                        duration-300 text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 hover:dark:text-neutral-200'
+                        duration-300 text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 hover:dark:text-neutral-200 p-1'
+
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+
+                        deleteChat({
+                          chatId: item.$id,
+                          title: item.title,
+                          submit: submit
+                        })
+                      }}
                     >
                       <MdDeleteOutline size={16} className='' />
                     </button>
@@ -72,8 +84,8 @@ const SidePanel: React.FC<SidePanelProps> = ({
           </div>
 
           <Footer />
-        </div>
-      </div>
+        </div >
+      </div >
 
       <div
         className={`overlay ${sidePanelOpen ? 'open' : ''}`}
