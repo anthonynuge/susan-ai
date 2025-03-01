@@ -1,19 +1,26 @@
-import { redirect } from 'react-router-dom';
+import { redirect, LoaderFunction } from 'react-router-dom';
 import { Query } from 'appwrite';
-import { account, databases } from '../../lib/appwrite';
+import { account, databases } from '@/lib/appwrite';
 
-interface ChatData {
-  $id: string;
-  title: string;
+import { ChatList, UserModel } from '@/types/appwriteModels';
+
+interface AppLoaderData {
+  user?: UserModel;
+  chats?: ChatList;
 }
 
-const appLoader = async (): Response | Promise<{ user?: { $id: string }; chats?: ChatData[] }> => {
-  const data: { user?: { $id: string }; chats?: ChatData[] } = {};
+const appLoader: LoaderFunction = async (): Promise<AppLoaderData> => {
+  const data: AppLoaderData = {};
+
   try {
     data.user = await account.get();
   } catch (err) {
     console.error('Problem retrieving user session: ', err);
-    return redirect('./login');
+    throw redirect('./login');
+  }
+
+  if (!data.user) {
+    throw redirect('./login');
   }
 
   try {
@@ -30,9 +37,7 @@ const appLoader = async (): Response | Promise<{ user?: { $id: string }; chats?:
     if (error instanceof Error) {
       console.log(`Error loading chats ${error.message}`)
     }
-
   }
-
   return data;
 };
 
