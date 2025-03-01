@@ -1,4 +1,9 @@
-import { model } from "../lib/geminiAi"
+import { model } from "@/lib/geminiAi"
+
+interface ChatMessage {
+  role: "user" | "model",
+  parts: { text: string }[],
+}
 
 const getConvoTitle = async (userPrompt: string) => {
   try {
@@ -18,8 +23,13 @@ const getConvoTitle = async (userPrompt: string) => {
 // get a response takes in userpromp or an array <user promp, ai response>
 // returns a promise 
 // https://ai.google.dev/gemini-api/docs/text-generation?lang=node
-const getGeminiResponse = async (userPrompt: string, chatHistory = []): Promise<string> => {
-  const history = [];
+const getGeminiResponse = async (
+  userPrompt: string,
+  chatHistory: { user_prompt: string; ai_response: string }[] = []
+): Promise<string> => {
+
+  const history: ChatMessage[] = [];
+
   chatHistory.forEach(({ user_prompt, ai_response }) => {
     history.push(
       {
