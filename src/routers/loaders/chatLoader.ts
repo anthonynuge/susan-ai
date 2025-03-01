@@ -1,14 +1,26 @@
 import { account, databases } from "../../lib/appwrite";
+import { UserModel, DocumentModel } from "@/types/appwriteModels";
 
-import { redirect } from "react-router-dom";
+import { redirect, LoaderFunction } from "react-router-dom";
 
 type ParamsType = {
   chatId: string
 }
 
-const chatLoader = async ({ params }: { params: ParamsType }) => {
-  const { chatId } = params;
-  const data = {};
+interface ChatLoaderData {
+  user?: UserModel;
+  chat?: DocumentModel;
+}
+
+const chatLoader: LoaderFunction = async ({ params }) => {
+  const { chatId } = params as ParamsType;
+
+  if (!chatId) {
+    console.log("Chat ID is missing redirect to home...")
+    return redirect("/")
+  }
+
+  const data: ChatLoaderData = {};
 
   // try to get user data using the chatId
   try {
