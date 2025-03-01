@@ -1,7 +1,7 @@
 import { SubmitFunction } from "react-router-dom";
 
 interface DeleteChatProps {
-  chat_id: string,
+  chatId: string,
   title: string,
   submit: SubmitFunction,
 }

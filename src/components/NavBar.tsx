@@ -6,7 +6,7 @@ import {
   Link,
   useNavigate,
   useLoaderData,
-  useNavigation,
+  // useNavigation,
   useParams,
   useSubmit
 } from 'react-router-dom';
@@ -15,9 +15,12 @@ import UserAvatar from './UserAvatar';
 import Menu from './Menu';
 import MenuItem from './MenuItem';
 
-import logout from '../utils/logout';
+import logout from '@/utils/logout';
 import IconBtn from './IconBtn';
-import deleteChat from '../utils/deleteChat';
+import deleteChat from '@/utils/deleteChat';
+import { toast } from 'react-toastify';
+
+import { ChatDocument, UserModel } from '@/types/appwriteModels';
 
 interface NavBarProps {
   toggleSidePanel: () => void;
@@ -26,11 +29,14 @@ interface NavBarProps {
 const NavBar: React.FC<NavBarProps> = ({ toggleSidePanel }) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
   // const isNormalLoad = navigation.state === 'loading' && !navigation.formData;
 
   const navigate = useNavigate();
-  const { user, chats } = useLoaderData();
+  const { user, chats } = useLoaderData() as {
+    user: UserModel;
+    chats: { documents: ChatDocument[] }
+  };
   const params = useParams();
   const submit = useSubmit();
 
@@ -63,13 +69,17 @@ const NavBar: React.FC<NavBarProps> = ({ toggleSidePanel }) => {
             icon={<MdDeleteOutline size={20} />}
             className='lg:hidden '
             onClick={() => {
-              const { title } = chats.documents.find(
-                ({ $id }) => params.chatId === $id,
-              );
+              const chat = chats.documents.find((chat) => params.chatId === chat.$id);
+
+              if (!chat) {
+                console.warn("Chat not found");
+                toast.error(`Error: Chat not found.`)
+                return
+              }
 
               deleteChat({
-                chatId: params.chatId,
-                title: title,
+                chatId: params.chatId as string,
+                title: chat.title,
                 submit: submit
               })
             }}
