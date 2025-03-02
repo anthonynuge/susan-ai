@@ -12,14 +12,21 @@ interface SidePanelProps {
   toggleSidePanel: () => void;
 }
 
+interface ChatPreview {
+  $id: string;
+  title: string;
+}
+
 const SidePanel: React.FC<SidePanelProps> = ({
   sidePanelOpen,
   toggleSidePanel,
 }) => {
-  const { chats: { documents: chatData }
-  } = useLoaderData() || {};
+
+  const { chats } = useLoaderData() as { chats: { documents: ChatPreview[] } }
+  const chatData = chats?.documents || [];
 
   const submit = useSubmit();
+
 
   return (
     <>
@@ -44,7 +51,7 @@ const SidePanel: React.FC<SidePanelProps> = ({
             {/* <hr className="text-neutral-600" /> */}
 
             <nav>
-              {chatData.map((item) => (
+              {chatData.map((item: ChatPreview) => (
                 <div key={item.$id} className="relative group">
                   <NavLink
                     to={item.$id}
