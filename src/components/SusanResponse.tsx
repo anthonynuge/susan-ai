@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { CSSProperties, useEffect, useState } from 'react'
 import susan from "../assets/susan.jpg"
 
 import ReactMarkdown from 'react-markdown'
@@ -6,6 +6,7 @@ import remarkGfm from 'remark-gfm'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark, oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { FaRegClipboard } from 'react-icons/fa';
+import { toast } from 'react-toastify'
 
 interface SusanResponseProps {
   text?: string;
@@ -18,6 +19,8 @@ interface CodeProps {
   [key: string]: string | number | boolean | React.ReactNode | undefined;
 }
 
+type SyntaxTheme = { [key: string]: CSSProperties }
+
 const capCase = (text: string): string => {
   return text
     .split(' ')
@@ -26,7 +29,7 @@ const capCase = (text: string): string => {
 }
 
 const SusanResponse = ({ text, children }: SusanResponseProps): JSX.Element => {
-  const [syntaxHighlightTheme, setSyntaxHighlightTheme] = useState("");
+  const [syntaxHighlightTheme, setSyntaxHighlightTheme] = useState<SyntaxTheme>({});
 
   useEffect(() => {
 
@@ -49,17 +52,22 @@ const SusanResponse = ({ text, children }: SusanResponseProps): JSX.Element => {
     }
   }, [])
 
-  const handleCopy = useCallback(async (codeOutput) => {
+
+  const handleCopy = async (codeOutput?: string) => {
+    if (!codeOutput) {
+      toast.error("No code to copy"); // ✅ Prevent copying `undefined` values
+      return;
+    }
+
     try {
       await navigator.clipboard.writeText(codeOutput);
+      toast.success("✅ Code copied to clipboard!");
     } catch (error) {
-      if (error instanceof Error) {
-        console.log(`Error text was not copied: ${error.message}`)
-      }
+      console.error("Error copying text:", error);
+      toast.error("❌ Copy failed. Please try again.");
     }
-  }, [])
-
-  const code: FC.ReactNode<CodeProps> = ({ children, className, ...rest }) => {
+  };
+  const CodeBlock: React.FC<CodeProps> = ({ children, className, ...rest }) => {
     const langMatch = className?.match(/language-(\w+)/)
     return langMatch ? (
       <>
@@ -68,7 +76,8 @@ const SusanResponse = ({ text, children }: SusanResponseProps): JSX.Element => {
             <div className=''>{capCase(langMatch[1])}</div>
             <button
               className='group cursor-pointer p-2 rounded-full transition'
-              onClick={handleCopy.bind(null, children)}
+              onClick={() => handleCopy(String(children))}
+            // onClick={handleCopy.bind(null, children)}
             >
               <FaRegClipboard className='text-neutral-600 group-hover:text-neutral-800 dark:text-neutral-500 dark:group-hover:text-neutral-300 transition' />
             </button>
@@ -89,15 +98,18 @@ const SusanResponse = ({ text, children }: SusanResponseProps): JSX.Element => {
               }
             }}
           >
-            {children}
+            {String(children)}
           </SyntaxHighlighter>
         </div>
       </>
     ) : (
       <code className={className}>{children}</code>
-
     )
   }
+
+  const markdownComponents: Record<string, React.ElementType> = {
+    code: CodeBlock, // ✅ Type-safe assignment
+  };
 
   return (
     <div className='grid grid-cols-1 gap-2 py-3 md:grid-cols-[max-content_minmax(0,1fr)] md:gap-4'>
@@ -119,7 +131,7 @@ const SusanResponse = ({ text, children }: SusanResponseProps): JSX.Element => {
       <div className='mkdn-response'>
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
-          components={{ code }}
+          components={markdownComponents}
         >
           {text}
         </ReactMarkdown>
