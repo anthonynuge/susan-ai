@@ -9,7 +9,8 @@ const usePromptPreloader = () => {
   useEffect(() => {
     // if waitin gon prompt 
     if (navigation.formData) {
-      setPreLoaderVal(navigation.formData.get('user_prompt') || '');
+      const userPrompt = navigation.formData.get('user_prompt');
+      setPreLoaderVal(typeof userPrompt === 'string' ? userPrompt : '');
     } else {
       setPreLoaderVal('');
     }
